@@ -44,7 +44,7 @@ To run specs in parallel:
 
 To run specs distributed:
 
-  `rake android[distribute]`
+  `rake android[dist]`
   
 Generate Allure report:
   `allure generate report output/allure/*`
