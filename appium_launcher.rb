@@ -14,7 +14,7 @@ def appium_server_start(**options)
   command << " --log #{Dir.pwd}/output/#{options[:log]}" if options.key?(:log)
   command << " --tmp /tmp/#{options[:tmp]}" if options.key?(:tmp) 
   Dir.chdir('.') {
-    pid = spawn(command + " &", :out=>"/dev/null")
+    pid = spawn(command, :out=>"/dev/null")
     puts 'Waiting for Appium to start up...'
     sleep 10
     if pid.nil?
@@ -22,10 +22,6 @@ def appium_server_start(**options)
     end
   }
 end
-
-#assumptions
-# android only
-# only one hub running on port 4444
 
 def generate_node_config(file_name, udid, appium_port)
   system "mkdir node_configs >> /dev/null 2>&1"
@@ -36,15 +32,18 @@ def generate_node_config(file_name, udid, appium_port)
   f.close
 end
 
+def start_hub
+  `ps -ef | grep "selenium" | awk '{print $2}' | xargs kill >> /dev/null 2>&1`
+  spawn("java -jar selenium-server-standalone-2.47.1.jar -role hub -log #{Dir.pwd}/output/hub.log &", :out=>"/dev/null")
+end
+
 def launch_hub_and_nodes
   #kill any active hub or nodes...
-  `ps -ef | grep "selenium" | awk '{print $2}' | xargs kill >> /dev/null 2>&1`
   `ps -ef | grep "appium" | awk '{print $2}' | xargs kill >> /dev/null 2>&1`
-  spawn("java -jar selenium-server-standalone-2.47.1.jar -role hub -log #{Dir.pwd}/output/hub.log &", :out=>"/dev/null")
+  start_hub #comment or remove if you already have a hub running.
   devices = JSON.parse(get_android_devices)
   ENV["THREADS"] = devices.size.to_s
   Parallel.map_with_index(devices, in_processes: devices.size) do |device, index|
-    puts device
     port = 4000 + index
     bp = 2250 + index
     config_name = "#{device["udid"]}.json"

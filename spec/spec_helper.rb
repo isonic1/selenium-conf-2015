@@ -1,18 +1,28 @@
-require_relative '../setup'
 require 'bundler'
 Bundler.require(:test)
 include Faker
 
-get_device_udid
+def thread
+  ((ENV['TEST_ENV_NUMBER'].nil? || ENV['TEST_ENV_NUMBER'].empty?) ? 1 : ENV['TEST_ENV_NUMBER']).to_i
+end
+
+ENV["UDID"] = JSON.parse(ENV["DEVICES"]).find { |t| t["thread"].eql? thread }["udid"]
 
 RSpec.configure do |config|
   
   config.color = true
-  config.tty = true
-  
+
   config.before :all do
-    setup_driver
-    promote_methods
+    caps = Appium.load_appium_txt file: File.join(File.dirname(__FILE__), '../appium.txt')
+    caps[:caps][:app] = Dir.pwd + "/NotesList.apk"
+    caps[:caps][:udid] = ENV["UDID"]
+    caps[:appium_lib] = {:sauce_username=>false, :sauce_access_key=>false, :wait=>30}
+    caps[:appium_lib][:server_url] = "http://localhost:4444/wd/hub" #Change this to your hub url if different.
+    
+    @driver = Appium::Driver.new(caps).start_driver
+    Appium.promote_appium_methods Object
+    Appium.promote_appium_methods RSpec::Core::ExampleGroup
+    
     wait_true { find_element(:id, 'android:id/action_bar_title').text.eql? "Notes" }
   end
     
