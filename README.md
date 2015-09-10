@@ -47,6 +47,7 @@ To run specs distributed:
   `rake android[dist]`
   
 Generate Allure report:
+
   `allure generate report output/allure/*`
   
   `allure report open`
