@@ -1,4 +1,4 @@
-# Mobile Grid Example
+# Appium Mobile Grid Example
 
 ## Getting Started
 
