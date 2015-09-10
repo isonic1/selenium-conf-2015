@@ -1,4 +1,4 @@
-# Mobile Grid Example
+# Appium Mobile Grid Example
 
 ## Getting Started
 
@@ -29,7 +29,9 @@ To set up:
   `bundle install`
 
 * Install Allure Report: https://github.com/allure-framework/allure-cli
+
   `brew tap allure-framework/allure`
+  
   `brew install allure-cli`
 
 ## Running Specs
