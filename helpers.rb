@@ -28,6 +28,7 @@ end
 # only one hub running on port 4444
 
 def generate_node_config(file_name, udid, appium_port)
+  system "mkdir node_configs >> /dev/null 2>&1"
   f = File.new(Dir.pwd + "/node_configs/#{file_name}", "w")
   f.write( JSON.generate({ capabilities: [{ browserName: udid, maxInstances: 1, platform: "android" }],
   configuration: { cleanUpCycle: 2000, timeout: 180000, registerCycle: 5000, proxy: "org.openqa.grid.selenium.proxy.DefaultRemoteProxy", url: "http://127.0.0.1:#{appium_port}/wd/hub",
