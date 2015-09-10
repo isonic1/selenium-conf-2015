@@ -11,6 +11,7 @@ ENV["UDID"] = JSON.parse(ENV["DEVICES"]).find { |t| t["thread"].eql? thread }["u
 RSpec.configure do |config|
   
   config.color = true
+  config.tty = true
 
   config.before :all do
     caps = Appium.load_appium_txt file: File.join(File.dirname(__FILE__), '../appium.txt')

@@ -4,7 +4,7 @@ desc 'Running on the grid!'
 task :android, :type do |t, args|
   
   types = ['distributed', 'parallel']
-  if !types.include? args[:type]
+  unless types.include? args[:type]
     puts "Invalid run type!\nChoose: #{types}"
     abort
   end
