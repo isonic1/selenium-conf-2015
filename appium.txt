@@ -1,0 +1,8 @@
+[caps]
+platformName = "ANDROID"
+deviceName = "android"
+platformVersion = "4.3"
+takesScreenshot = true
+
+[appium_lib]
+wait = 30

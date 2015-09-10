@@ -1,0 +1,78 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    allure-rspec (0.7.1)
+      allure-ruby-adaptor-api (= 0.6.6)
+      rspec (~> 3.2)
+    allure-ruby-adaptor-api (0.6.6)
+      mimemagic
+      nokogiri (~> 1.6.0)
+      uuid
+    appium_lib (7.0.0)
+      awesome_print (~> 1.6)
+      json (~> 1.8)
+      nokogiri (~> 1.6.6)
+      selenium-webdriver (~> 2.45)
+      toml (~> 0.0)
+    awesome_print (1.6.1)
+    blankslate (2.1.2.4)
+    builder (3.2.2)
+    childprocess (0.5.6)
+      ffi (~> 1.0, >= 1.0.11)
+    diff-lcs (1.2.5)
+    faker (1.5.0)
+      i18n (~> 0.5)
+    ffi (1.9.10)
+    i18n (0.7.0)
+    json (1.8.3)
+    macaddr (1.7.1)
+      systemu (~> 2.6.2)
+    mimemagic (0.3.0)
+    mini_portile (0.6.2)
+    multi_json (1.11.2)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
+    parallel (1.6.1)
+    parallel_tests (1.6.2)
+      parallel
+    parslet (1.5.0)
+      blankslate (~> 2.0)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+    rspec-core (3.3.2)
+      rspec-support (~> 3.3.0)
+    rspec-expectations (3.3.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-mocks (3.3.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-support (3.3.0)
+    rspec_junit_formatter (0.2.3)
+      builder (< 4)
+      rspec-core (>= 2, < 4, != 2.12.0)
+    rubyzip (1.1.7)
+    selenium-webdriver (2.47.1)
+      childprocess (~> 0.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
+    systemu (2.6.5)
+    toml (0.1.2)
+      parslet (~> 1.5.0)
+    uuid (2.3.8)
+      macaddr (~> 1.0)
+    websocket (1.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  allure-rspec
+  appium_lib
+  faker
+  parallel_tests
+  rspec
+  rspec_junit_formatter
