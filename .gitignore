@@ -6,3 +6,4 @@
 *.mp4
 *.lck
 allure-report
+node_configs

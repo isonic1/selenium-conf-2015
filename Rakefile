@@ -3,6 +3,7 @@ require_relative 'helpers'
 desc 'Running on the grid!'
 task :android, :type do |t, args|
   
+  system "mkdir output >> /dev/null 2>&1"
   launch_hub_and_nodes
   
   case args[:type]
