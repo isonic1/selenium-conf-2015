@@ -14,10 +14,8 @@ task :android, :type do |t, args|
   
   case args[:type]
   when "dist"
-    puts args[:type]
     exec "parallel_rspec -n #{ENV["THREADS"]} spec"  
   when "parallel"
-    puts args[:type]
     exec "parallel_test -n #{ENV["THREADS"]} -e 'rspec spec'"
   end
 end

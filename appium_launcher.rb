@@ -35,6 +35,8 @@ end
 def start_hub
   `ps -ef | grep "selenium" | awk '{print $2}' | xargs kill >> /dev/null 2>&1`
   spawn("java -jar selenium-server-standalone-2.47.1.jar -role hub -log #{Dir.pwd}/output/hub.log &", :out=>"/dev/null")
+  sleep 3 #wait for hub to start...
+  spawn("open -a safari http://127.0.0.1:4444/grid/console")
 end
 
 def launch_hub_and_nodes
@@ -48,7 +50,7 @@ def launch_hub_and_nodes
     bp = 2250 + index
     config_name = "#{device["udid"]}.json"
     generate_node_config config_name, device["udid"], port
-    node_config = Dir.pwd + "#{config_name}"
+    node_config = Dir.pwd + "/node_configs/#{config_name}"
     appium_server_start config: node_config, port: port, bp: bp, udid: device["udid"], log: "appium-#{device["udid"]}.log", tmp: device["udid"]
   end
 end
