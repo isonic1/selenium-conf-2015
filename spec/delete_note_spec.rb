@@ -1,8 +1,9 @@
 require 'spec_helper'
 
-describe "Modify Note Scenarios: Android: #{ENV["UDID"]}" do
+describe "Modify Note Scenarios #{ENV["UDID"]}" do
   
   before :each do
+    wait_true { find_element(:id, 'android:id/action_bar_title').text.eql? "Notes" }
     find_element(:id, 'com.example.android.notepad:id/menu_add').click
     wait_true { find_element(:id, "android:id/action_bar_title").text.eql? "New note" }
     @note = Lorem.sentence
@@ -13,8 +14,12 @@ describe "Modify Note Scenarios: Android: #{ENV["UDID"]}" do
     
   it 'Delete A Note' do
     find_elements(:id, 'android:id/text1').find { |note| note.text.eql? @note }.click
-    find_element(:id, 'More options').click
-    find_element(:name, 'Delete').click
+    if exists { find_element(:id, "com.example.android.notepad:id/menu_delete") }
+      find_element(:id, "com.example.android.notepad:id/menu_delete").click
+    else
+      find_element(:id, 'More options').click
+      find_element(:name, 'Delete').click
+    end
     wait_true { find_element(:id, "android:id/action_bar_title").text.eql? "Notes" }
     if exists { find_element(:id, 'android:id/text1') }
       notes = find_elements(:id, 'android:id/text1').map { |note| note.text }

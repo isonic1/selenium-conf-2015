@@ -41,11 +41,23 @@ To set up:
 To run specs in parallel: 
 
   `rake android[parallel]`
-
+ 
 To run specs distributed:
 
   `rake android[dist]`
+
+To run specs on SauceLabs:
+  * Goto saucelabs.com and signup.
+  * Then add your SauceLabs environment variables.
   
+  `export SAUCE_USERNAME=<user sauce user_id>`
+  
+  `export SAUCE_ACCESS_KEY=<your sauce access key>`
+
+  `rake android[parallel,sauce]`
+  
+  `rake android[parallel,sauce]`
+   
 Generate Allure report:
 
   `allure generate report output/allure/*`
@@ -53,5 +65,5 @@ Generate Allure report:
   `allure report open`
 
 Disclaimer:
-  * This was setup was built quickly, so the code is not in the optimal state of dryness.
+  * This example was built quickly, so the code is not in the optimal state of dryness.
   * No page objects were used. The tests are soley for example purposes. :)
