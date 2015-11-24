@@ -54,9 +54,9 @@ To run specs on SauceLabs:
   
   `export SAUCE_ACCESS_KEY=<your sauce access key>`
 
-  `rake android[parallel,sauce]`
+  `rake android[parallel,sauce]` << "Will run tests tagged with :sauce in parallel"
   
-  `rake android[parallel,sauce]`
+  `rake android[dist,sauce]` << "Will run tests tagged with :sauce distributed"
    
 Generate Allure report:
 
