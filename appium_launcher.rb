@@ -1,6 +1,10 @@
 require 'parallel'
 require 'json'
 
+def kill_process process
+  `ps -ef | grep #{process} | awk '{print $2}' | xargs kill >> /dev/null 2>&1`
+end
+
 def get_android_devices
   ENV["DEVICES"] = JSON.generate((`adb devices`).lines.select { |line| line.match(/\tdevice$/) }.map.each_with_index { |line, index| { udid: line.split("\t")[0], thread: index + 1 } })
 end
@@ -33,16 +37,15 @@ def generate_node_config(file_name, udid, appium_port)
 end
 
 def start_hub
-  `ps -ef | grep "selenium" | awk '{print $2}' | xargs kill >> /dev/null 2>&1`
+  kill_process "selenium"
   spawn("java -jar selenium-server-standalone-2.47.1.jar -role hub -log #{Dir.pwd}/output/hub.log &", :out=>"/dev/null")
   sleep 3 #wait for hub to start...
   spawn("open -a safari http://127.0.0.1:4444/grid/console")
 end
 
 def launch_hub_and_nodes
-  #kill any active hub or nodes...
-  `ps -ef | grep "appium" | awk '{print $2}' | xargs kill >> /dev/null 2>&1`
-  start_hub #comment or remove if you already have a hub running.
+  kill_process "appium" #kill any active hub or nodes...
+  start_hub #comment out or remove if you already have a hub running.
   devices = JSON.parse(get_android_devices)
   ENV["THREADS"] = devices.size.to_s
   Parallel.map_with_index(devices, in_processes: devices.size) do |device, index|

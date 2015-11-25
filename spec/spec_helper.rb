@@ -43,7 +43,7 @@ RSpec.configure do |config|
     
   config.after :each do |e|
     update_sauce_status @driver.session_id, e.exception.nil?
-    unless ENV["ENV"].eql? "sauce" 
+    unless ENV["ENV"].eql? "sauce" #you can dl and attach SL metadata. However, it sometimes takes SL a long time to end the test :/
       adb.stop_logcat
       adb.stop_video_record ENV["UDID"], "#{ENV["UDID"]}-#{thread}"     
       unless e.exception.nil?

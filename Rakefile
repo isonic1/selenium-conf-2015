@@ -46,7 +46,6 @@ def upload_app_to_sauce app
 end
 
 def clear_old_report_data
-  #allure framework does this but is extra assurance no old remnants persist.
   `/bin/rm -rf ./output/allure/* >> /dev/null 2>&1`
   `rm ./output/*  >> /dev/null 2>&1`
 end
