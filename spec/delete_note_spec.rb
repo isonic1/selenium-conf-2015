@@ -12,7 +12,7 @@ describe "Modify Note Scenarios #{ENV["UDID"]}" do
     wait_true { find_element(:id, "android:id/action_bar_title").text.eql? "Notes" }
   end
     
-  it 'Delete A Note', sauce: true do
+  it 'Delete A Note', sauce: false do
     find_elements(:id, 'android:id/text1').find { |note| note.text.eql? @note }.click
     if exists { find_element(:id, "com.example.android.notepad:id/menu_delete") }
       find_element(:id, "com.example.android.notepad:id/menu_delete").click
